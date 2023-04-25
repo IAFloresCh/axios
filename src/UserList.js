@@ -32,6 +32,17 @@ class UserList extends Component {
       });
   }
 
+  deleteUser = (id) => {
+    axios.delete(baseURL + '/users/' + id)
+      .then(response => {
+        this.getUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  
+
   handleUserClick = user => {
     this.setState({ selectedUser: user });
   };
@@ -59,7 +70,8 @@ class UserList extends Component {
           <ul>
             {users.map(user => (
               <li key={user.id} onClick={() => this.handleUserClick(user)}>
-                {user.name}  {user.username}  {user.email}
+                <span className="delete-user" onClick={() => this.deleteUser(user.id)}>X</span>
+                <span>{user.name}</span> <span> {user.username} </span> <span> {user.email}</span>
               </li>
             ))}
           </ul>

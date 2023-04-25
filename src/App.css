@@ -36,6 +36,8 @@ ul {
 }
 
 .user-list li{
+  display: flex;
+  flex-direction: column;
   width: 80%;
   margin: 10px;
   padding: 10px;
@@ -44,6 +46,17 @@ ul {
   box-shadow: 0 2px 3px #ccc;
   text-align: center;
 }
+.delete-user{
+  width: 20%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: center;
+  background-color: #f44336;
+  color: #fff;
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
 }
