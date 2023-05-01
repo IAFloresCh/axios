@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-//const baseURL = 'http://127.0.0.1:8080';
+const baseURL = 'http://127.0.0.1:8080';
 
 //const baseURL = 'http://10.0.2.129:8080';
-const baseURL = 'http://192.168.1.192:8080';
+//const baseURL = 'http://192.168.1.192:8080';
 
 class CreateUser extends Component {
     constructor(props) {

@@ -3,17 +3,18 @@ import axios from 'axios';
 import CreateUser from './CreateUser';
 import UserDetails from './UserDetails';
 
-//const baseURL = 'http://127.0.0.1:8080';
+const baseURL = 'http://127.0.0.1:8080';
 
 //const baseURL = 'http://10.0.2.129:8080';
-const baseURL = 'http://192.168.1.192:8080';
+//const baseURL = 'http://192.168.1.192:8080';
 
 class UserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
-      selectedUser: null,
+      userById: null,
+      //selectedUser: null,
     };
   }
 
@@ -31,6 +32,17 @@ class UserList extends Component {
         console.log(error);
       });
   }
+  
+  getUserById(userId) {
+    axios.get(baseURL + '/users/' + userId)
+      .then(response => {
+        this.setState({ userById: response.data.user});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
 
   deleteUser = (id) => {
     axios.delete(baseURL + '/users/' + id)
@@ -42,11 +54,11 @@ class UserList extends Component {
       });
   }
   
-
+/*
   handleUserClick = user => {
     this.setState({ selectedUser: user });
   };
-
+*/
   handleUserAdded = user => {
     this.setState(prevState => ({
       users: [...prevState.users, user]
@@ -55,7 +67,7 @@ class UserList extends Component {
 
 
   render() {
-    const { users, selectedUser } = this.state;
+    const { users, userById } = this.state;
 
     return (
       <div className="container">
@@ -69,7 +81,7 @@ class UserList extends Component {
         <h2>Lista Usuarios</h2>
           <ul>
             {users.map(user => (
-              <li key={user.id} onClick={() => this.handleUserClick(user)}>
+              <li key={user.id} onClick={() => this.getUserById(user.id)}>
                 <span className="delete-user" onClick={() => this.deleteUser(user.id)}>X</span>
                 <span>{user.name}</span> <span> {user.username} </span> <span> {user.email}</span>
               </li>
@@ -79,7 +91,7 @@ class UserList extends Component {
 
         <div className="user-details">
           <h2>Detalles</h2>
-          {selectedUser && <UserDetails user={selectedUser} />}
+          {userById && <UserDetails user={userById} />}
         </div>
 
 
